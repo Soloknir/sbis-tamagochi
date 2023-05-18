@@ -1,0 +1,35 @@
+{
+  "name": "sbis-tamagochi",
+  "version": "1.0.0",
+  "description": "Assuming they haven't killed this link, check it out here: hungry-wing-82501e.netlify.app/\r Alternatively:\r Download/Clone this folder onto your pc, and run via Firefox/Brackets live\r launcher. Does not work for Chrome at this point in time.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "SET NODE_ENV='development' && webpack",
+    "build": "SET NODE_ENV='production' && webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soloknir/sbis-tamagochi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Soloknir/sbis-tamagochi/issues"
+  },
+  "homepage": "https://github.com/Soloknir/sbis-tamagochi#readme",
+  "devDependencies": {
+    "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "expose-loader": "^4.1.0",
+    "html-webpack-plugin": "^5.5.1",
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "p2": "^0.7.1",
+    "phaser": "^2.6.2",
+    "pixi": "^0.3.1"
+  }
+}

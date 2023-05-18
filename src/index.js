@@ -1,22 +1,45 @@
+import 'pixi';
+import 'p2';
+import Phaser from 'phaser'
+
+let game = new Phaser.Game(800, 800, Phaser.AUTO);
+let height = 800;
+let width = 800;
+let buttonDispX = 50;
 
 
-/*
-This file is a core building block in the program, as it is used to "scroll" through object arrays using
-buttons, creating a UI for many states. The only thing that needs to be in put into these functions
-are arrays and their corresponding spriteSheets. 
-Objects put into these functions should have a format like this:
-function foodItem(name,spriteIndex,cost,desc,hungRestore){
-	this.mainText = name;
-	this.descText = desc;
-	this.spriteIndex = spriteIndex;
-	this.cost = cost;
-	this.hungRestore = hungRestore;
-	this.select = function() {
-		//PUT METHOD HERE
-	}
-}
-Object must have mainText,descText,spriteIndex properties and should have a select() method.
-*/
+let date = new Date();
+
+let background;
+let button0
+let button1
+let button2
+let button3
+let button4
+let button5
+let button6
+let button7
+let button8
+let button9
+let button10
+let button11
+let button12
+let button13
+let button14
+let counter;
+let petSprite;
+let sickSprite;
+let poopSprite0;
+let poopSprite1;
+let poopSprite2;
+let poopArray;
+let text;
+let tickCounter = 0;
+let sprite;
+let mainText;
+let descText;
+let costText;
+let time;
 
 //have a menu that allows you to select and scroll from two arrays.
 //Inputs 4 strings, and will switch to a given state and display a given string
@@ -32,9 +55,9 @@ function drawGameMenu (state1, desc1, state2, desc2) {
 	button14.desc = desc2;
 	button14.state = state2;
 
-	var text1 = game.add.bitmapText(width * (2 / 6), height * (2 / 6), "pixel", desc1, 32);
+	let text1 = game.add.bitmapText(width * (2 / 6), height * (2 / 6), "pixel", desc1, 32);
 	text1.anchor.set(0.5);
-	var text2 = game.add.bitmapText(width * (2 / 6), height * (4 / 6), "pixel", desc2, 32);
+	let text2 = game.add.bitmapText(width * (2 / 6), height * (4 / 6), "pixel", desc2, 32);
 	text2.anchor.set(0.5);
 }
 
@@ -42,25 +65,25 @@ function gameMenuSelect (button) {
 	game.state.start(button.state);
 }
 
-slideCounter = 0;
+let slideCounter = 0;
 //this function creates the buttons and UI to be displayed to the user.
 function drawGameUI (array, spriteSheet) {
 	slideCounter = 0;
-	button10 = game.add.button(width * (1 / 6), this.game.world.centerY, "buttonSheet", changeSlide, this, 11, 11, 11);
+	button10 = game.add.button(width * (1 / 6), game.world.centerY, "buttonSheet", changeSlide, this, 11, 11, 11);
 	button10.name = "backward";
 	button10.anchor.set(0.5);
 
-	button11 = game.add.button(width * (5 / 6), this.game.world.centerY, "buttonSheet", changeSlide, this, 10, 10, 10);
+	button11 = game.add.button(width * (5 / 6), game.world.centerY, "buttonSheet", changeSlide, this, 10, 10, 10);
 	button11.name = "forward";
 	button11.anchor.set(0.5);
 
-	button12 = game.add.button(this.game.world.centerX, height * (7 / 9), "buttonSheet", changeSlide, [this, array], 12, 12, 12);
+	button12 = game.add.button(game.world.centerX, height * (7 / 9), "buttonSheet", changeSlide, [this, array], 12, 12, 12);
 	button12.name = "select";
 	button12.anchor.set(0.5);
 	//notice how you can assign variables to buttons, very useful for parsing in parameters.
 	button12.variable = array;
 
-	sprite = game.add.sprite(this.game.world.centerX, this.game.world.centerY, spriteSheet);
+	sprite = game.add.sprite(game.world.centerX, game.world.centerY, spriteSheet);
 	sprite.frame = 0;
 	sprite.anchor.setTo(0.5);
 	mainText = game.add.bitmapText(game.world.centerX, height * (1 / 4), "pixel", "Empty!", 32);
@@ -123,12 +146,12 @@ function displaySlide (array) {
 }
 //-----------------------------------------------------------------------------------------------
 function printText (contents) {
-	var text = game.add.bitmapText(75, game.world.centerY - 200, "pixel", contents, 32);
+	let text = game.add.bitmapText(75, game.world.centerY - 200, "pixel", contents, 32);
 	//text.anchor.set(0.5);
 	//
 }
 
-var tempText;
+let tempText;
 function addTempText (contents, duration) {
 	tempText = game.add.bitmapText(game.world.centerX, game.world.centerY * (3 / 4), "pixel", contents, 32);
 	tempText.anchor.set(0.5);
@@ -143,7 +166,7 @@ function removeTempText () {
 
 function drawGameBody () {
 	//game.stage.backgroundColor = "#ff6e2b";
-	this.background = this.game.add.sprite(0, 0, "background");
+	background = game.add.sprite(0, 0, "background");
 
 	//add buttons
 	//"buttonSheet" is the name of the resource you are loading, changeState is the
@@ -228,7 +251,7 @@ function foodItem (name, spriteIndex, cost, desc, hungRestore) {
 	}
 }
 //
-invFoodArray = [
+const invFoodArray = [
 	new foodItem("Burger", 0, 10, "Fast food", 8),
 	/*
 	new foodItem("Steak",1,20,"Cow flesh.\nCosts $20",18),
@@ -244,7 +267,7 @@ invFoodArray = [
 
 
 
-var food = {
+let food = {
 	preload: function () {
 
 	},
@@ -263,7 +286,7 @@ var food = {
 		}
 		/*
 		//draw food sprite
-		foodSprite = game.add.sprite(this.game.world.centerX,this.game.world.centerY,"foodSheet");
+		foodSprite = game.add.sprite(game.world.centerX,game.world.centerY,"foodSheet");
 		//change its "center point";
 		foodSprite.frame = 0;
 		foodSprite.anchor.setTo(0.5);
@@ -285,7 +308,7 @@ var food = {
 	}
 }
 
-rerunCounter = 5;
+let rerunCounter = 5;
 function playItem (name, spriteIndex, cost, useCost, desc, happinessRestore) {
 	this.mainText = name;
 	this.descText = desc;
@@ -339,7 +362,7 @@ function playItem (name, spriteIndex, cost, useCost, desc, happinessRestore) {
 	}
 }
 //TODO: allow for new playItems to be stacked onto this array when purchased from the shop
-invPlayArray = [
+const invPlayArray = [
 	new playItem("Vacation", 0, 0, 100, "Chill\nCosts $100", 100),
 	new playItem("Board Games", 1, 0, 1, "More like Bored Games amiright\nCosts $1", 5),
 	new playItem("Work", 2, 0, -50, "Make $$$, but at the expense\n of some happiness.\nPays $50", -10),
@@ -348,7 +371,7 @@ invPlayArray = [
 ];
 
 
-var play = {
+let play = {
 	preload: function () {
 	},
 	create: function () {
@@ -358,7 +381,7 @@ var play = {
 		button12.mode = "use";
 		/*
 		//draw food sprite
-		foodSprite = game.add.sprite(this.game.world.centerX,this.game.world.centerY,"foodSheet");
+		foodSprite = game.add.sprite(game.world.centerX,game.world.centerY,"foodSheet");
 		//change its "center point";
 		foodSprite.frame = 0;
 		foodSprite.anchor.setTo(0.5);
@@ -375,7 +398,7 @@ var play = {
 	}
 }
 
-var shop = {
+let shop = {
 	preload: function () {
 	},
 	create: function () {
@@ -388,7 +411,7 @@ var shop = {
 	}
 }
 
-var shopItem = {
+let shopItem = {
 	preload: function () {
 	},
 	create: function () {
@@ -402,7 +425,7 @@ var shopItem = {
 	}
 }
 
-var shopFood = {
+let shopFood = {
 	preload: function () {
 	},
 	create: function () {
@@ -418,7 +441,7 @@ var shopFood = {
 
 
 //items sold by the store
-foodArray = [
+const foodArray = [
 	new foodItem("Burger", 0, 10, "Fast food", 8),
 	new foodItem("Steak", 1, 20, "Cow flesh", 18),
 	new foodItem("Creamsicle", 2, 5, "I hate creamsicles", 3),
@@ -430,7 +453,7 @@ foodArray = [
 	new foodItem("Chicken", 8, 20, "Fresh chicken", 20)
 ];
 //playItem(name,spriteIndex,cost,useCost,desc,happinessRestore)
-playArray = [
+const playArray = [
 	new playItem("Pencil", 5, 100, 0, "Draw some of stuff", 11),
 	new playItem("Dumbbell", 6, 500, 0, "Get big quick", 20),
 	new playItem("Computer", 7, 1000, 0, "Wow so cool", 15),
@@ -440,7 +463,7 @@ playArray = [
 	new playItem("Fishing Rod", 11, 1000, 0, "*Doesn't actually catch things", 40),
 ]
 
-var pet = {
+let pet = {
 	name: "BBQ MAN",
 	sex: "M",
 	age: 0,
@@ -454,7 +477,7 @@ var pet = {
 	//poop refers to legitimate fecal matter the pet makes. It is not immaturity on my side.
 };
 
-globalVal = {
+let globalVal = {
 	money: 500,
 	counterEnabled: false,
 	godMode: false,
@@ -463,17 +486,17 @@ globalVal = {
 	camoNinjas: false,
 };
 
-var defaultPetJSON = JSON.stringify(pet);
-var defaultGlobalValJSON = JSON.stringify(globalVal);
-//var defaultInvFoodArrayJSON = JSON.stringify(invFoodArray);
-//var defaultInvPlayArrayJSON = JSON.stringify(invPlayArray);
-//var defaultPlayArrayJSON = JSON.stringify(playArray);
+let defaultPetJSON = JSON.stringify(pet);
+let defaultGlobalValJSON = JSON.stringify(globalVal);
+//let defaultInvFoodArrayJSON = JSON.stringify(invFoodArray);
+//let defaultInvPlayArrayJSON = JSON.stringify(invPlayArray);
+//let defaultPlayArrayJSON = JSON.stringify(playArray);
 
 
 //Attempt to load JSON with key string, and assign that to assignToVar, if cannot load JSON load abort and return false.
 function loadJSON (key) {
-	var loadedJSON = localStorage.getItem(key);
-	var testJSON = JSON.parse(loadedJSON);
+	let loadedJSON = localStorage.getItem(key);
+	let testJSON = JSON.parse(loadedJSON);
 	console.log(JSON.parse(loadedJSON));
 	if (testJSON == null) {
 		addTempText("Cannot Load File!");
@@ -535,13 +558,13 @@ function saveItem (name, spriteIndex, desc) {
 	}
 }
 //
-saveArray = [
+const saveArray = [
 	new saveItem("Save", 0, "Save your game"),
 	new saveItem("Load", 1, "Load your game"),
 	new saveItem("Reset", 2, "Reset your game,\nand lose all your progress")
 ];
 //
-var save = {
+let save = {
 	preload: function () {
 	},
 	create: function () {
@@ -595,7 +618,7 @@ function settingItem (name, spriteIndex, desc, affectingVal, nameVal) {
 		}
 	}
 }
-settingArray = [
+const settingArray = [
 	new settingItem("Enable/Disable Counter", 0, "Enable tick counter\n& ruin fun", globalVal.counterEnabled, "counterEnabled"),
 	new settingItem("Enable/Disable God Mode", 0, "Pet cannot die", globalVal.godMode, "godMode"),
 	new settingItem('"Invest" in Crypto', 0, "Get $10 every now and then", globalVal.ezMoney, "ezMoney"),
@@ -603,7 +626,7 @@ settingArray = [
 	new settingItem("Enable/Disable\nCamo Ninjas", 0, "Camoflauge Ninjas\n sometimes appear", globalVal.camoNinjas, "camoNinjas"),
 ];
 
-var settings = {
+let settings = {
 	preload: function () {
 
 	},
@@ -629,23 +652,9 @@ var settings = {
 	}
 }
 
-var game = new Phaser.Game(800, 800, Phaser.AUTO);
-var height = 800;
-var width = 800;
-var buttonDispX = 50;
-
-
-date = new Date();
-
-
-
-var tickCounter = 0;
-
-var time;
-
 
 //---------------------------STATES---------------------------------------
-var main = {
+let main = {
 	preload: function () {
 
 
@@ -660,7 +669,7 @@ var main = {
 		drawGameBody();
 
 		//draw pet sprite
-		petSprite = game.add.sprite(this.game.world.centerX, this.game.world.centerY, "petSheet");
+		petSprite = game.add.sprite(game.world.centerX, game.world.centerY, "petSheet");
 		//change its "center point";
 		petSprite.anchor.setTo(0.5);
 
@@ -744,7 +753,7 @@ var main = {
 //State loads all most game assests. While this technically isnt needed as all states can preload
 //the files are small enough that this preload will be very quick, and will prevent the game from
 //flickering when states change.
-var preload = {
+let preload = {
 	preload: function () {
 		//loads an image can can be refenced as background
 		this.load.image("background", "assets/art/background.png");
@@ -768,9 +777,9 @@ var preload = {
 	}
 }
 //-200+(32*4)
-//var healthBarEmpty;
+//let healthBarEmpty;
 
-var stats = {
+let stats = {
 	preload: function () {
 	},
 	create: function () {
@@ -789,7 +798,7 @@ var stats = {
 }
 
 
-var fastForward = {
+let fastForward = {
 	preload: function () {
 	},
 	create: function () {
@@ -801,7 +810,7 @@ var fastForward = {
 	}
 }
 
-var toilet = {
+let toilet = {
 	preload: function () {
 	},
 	create: function () {
@@ -813,7 +822,7 @@ var toilet = {
 	}
 }
 
-var medicine = {
+let medicine = {
 	preload: function () {
 	},
 	create: function () {
@@ -828,13 +837,13 @@ var medicine = {
 //---------------------------SUBSTATE FUNCTIONS---------------------------------------
 
 //time per tick, in minutes
-var TIME_PER_TICK = 5;
-var timeBegin = 0;
+let TIME_PER_TICK = 5;
+let timeBegin = 0;
 
 //This function checks if the "real world clock" has advanced enough to increment the game a tick.
 //The tick will alter the properties of the pet. 
 function tickCheck () {
-	var timeNow = (new Date()).getTime();
+	let timeNow = (new Date()).getTime();
 	//console.log("timeNow: "+timeNow);
 	if (timeBegin == 0) {
 		timeBegin = (new Date()).getTime();
@@ -894,7 +903,7 @@ function tick () {
 
 //turn ailment sprites "on" or "off" depending on the pets properties
 function ailmentCheck () {
-	for (var i = 0; i < 3; i++) {
+	for (let i = 0; i < 3; i++) {
 		//console.log(poopArray[i]);
 		if (i < pet.poop) {
 			poopArray[i].alpha = 1;
