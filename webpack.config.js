@@ -1,34 +1,12 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-var phaserModule = path.join(__dirname, '/node_modules/phaser/');
 
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/index.ts',
 	module: {
 		rules: [
-			{ test: /\.(js)$/, use: 'babel-loader' },
-			{
-				test: /pixi\.js/,
-				loader: 'expose-loader',
-				options: {
-					exposes: ["PIXI"],
-				},
-			},
-			{
-				test: /phaser-split\.js$/,
-				loader: 'expose-loader',
-				options: {
-					exposes: ["Phaser"],
-				},
-			},
-			{
-				test: /p2\.js/,
-				loader: 'expose-loader',
-				options: {
-					exposes: ["p2"],
-				},
-			},
+			{ test: /\.(ts)$/, use: 'ts-loader' },
 			{
 				test: /\.(jpg|png)$/,
 				use: {
@@ -38,11 +16,7 @@ module.exports = {
 		]
 	},
 	resolve: {
-		alias: {
-			'phaser': path.join(phaserModule, 'build/custom/phaser-split.js'),
-			'pixi': path.join(phaserModule, 'build/custom/pixi.js'),
-			'p2': path.join(phaserModule, 'build/custom/p2.js'),
-		}
+		extensions: ['.js','.ts']
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
