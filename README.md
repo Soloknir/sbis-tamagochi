@@ -1,8 +1,13 @@
 # Sbis Tamagotchi
 
+## Установка
+```properties
+npm ci
+```
+
 ## Запуск сервера для разработки:
 ```properties
-npm ci && npm run start
+npm run start
 ```
 
 ## Деплой приложения
