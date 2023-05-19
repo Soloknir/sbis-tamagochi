@@ -1,13 +1,21 @@
 import Phaser from 'phaser';
 
+enum MoodKeys {
+	HAPPY = 'HAPPY',
+	ANGRY = 'ANGRY',
+	DEAD = 'DEAD',
+	SAD = 'SAD',
+	NEUTRAL = 'NEUTRAL'
+}
+
 export class Pet {
-	name = "BBQ MAN";
+	name = "SBIS FOX";
 	sex = "M";
 	age = 0;
 	health = 50;
 	happiness = 50;
 	hunger = 50;
-	mood = "Neutral";
+	mood = MoodKeys.NEUTRAL;
 	size = 60;
 	sick = false;
 	poop = 0;
@@ -58,6 +66,7 @@ export class TamagoshiLoad extends Phaser.Scene {
 }
 
 export class TamagoshiMain extends Phaser.Scene {
+	pet: Pet;
 	petSprite: Phaser.GameObjects.Sprite;
 	sickSprite: Phaser.GameObjects.Sprite;
 	poopArray: Phaser.GameObjects.Sprite[];
@@ -79,39 +88,39 @@ export class TamagoshiMain extends Phaser.Scene {
 
 		//adds a custom animation with name,frames wanted in sprite sheet, the fps, and if it wants to be looped.
 		this.anims.create({
-			key: "neutral",
-			frames: this.anims.generateFrameNumbers('petSheet', { start: 0, end: 1}),
+			key: "NEUTRAL",
+			frames: this.anims.generateFrameNumbers('petSheet', { start: 0, end: 1 }),
 			frameRate: 2,
 			repeat: -1
 		});
 		this.anims.create({
-			key: "sad",
-			frames: this.anims.generateFrameNumbers('petSheet', { start: 2, end: 3}),
+			key: "SAD",
+			frames: this.anims.generateFrameNumbers('petSheet', { start: 2, end: 3 }),
 			frameRate: 2,
 			repeat: -1
 		});
 		this.anims.create({
-			key: "dead",
-			frames: this.anims.generateFrameNumbers('petSheet', { start: 4, end: 5}),
+			key: "DEAD",
+			frames: this.anims.generateFrameNumbers('petSheet', { start: 4, end: 5 }),
 			frameRate: 2,
 			repeat: -1
 		});
 		this.anims.create({
-			key: "happy",
-			frames: this.anims.generateFrameNumbers('petSheet', { start: 6, end: 7}),
+			key: MoodKeys.HAPPY,
+			frames: this.anims.generateFrameNumbers('petSheet', { start: 6, end: 7 }),
 			frameRate: 2,
 			repeat: -1
 		});
 		this.anims.create({
-			key: "angry",
-			frames: this.anims.generateFrameNumbers('petSheet', { start: 8, end: 9}),
+			key: MoodKeys.ANGRY,
+			frames: this.anims.generateFrameNumbers('petSheet', { start: 8, end: 9 }),
 			frameRate: 2,
 			repeat: -1
 		});
 
 
 		this.counter = this.add.bitmapText(75, game.world.centerY - 200, "pixel", "tickCounter", 32);
-		this.petSprite.play("neutral");
+		this.petSprite.play("NEUTRAL");
 		//add Sprites for ailments - conditions that can afflict the pet.
 		this.sickSprite = this.add.sprite(this.petSprite.x + 50, this.petSprite.y - 50, "ailmentSheet");
 		this.anims.create({
@@ -155,34 +164,34 @@ export class TamagoshiMain extends Phaser.Scene {
 		ailmentCheck();
 
 		//play sprite animation according to mood
-		petSprite.play(pet.mood);
+		this.petSprite.play(this.pet.mood);
 
 		if (globalVal.counterEnabled) {
-			counter.text = tickCounter;
+			this.counter.text = tickCounter;
 		}
 		else {
-			counter.text = "";
+			this.counter.text = "";
 		}
 
 
 		//now calculate pet mood
-		if (pet.mood == "dead") {
+		if (this.pet.mood == MoodKeys.DEAD) {
 			return;
 		}
-		if ((pet.hunger > 50) && (pet.happiness >= 60)) {
-			pet.mood = "happy";
+		if ((this.pet.hunger > 50) && (this.pet.happiness >= 60)) {
+			this.pet.mood = MoodKeys.HAPPY;
 		}
-		else if ((pet.hunger >= 30) && (pet.happiness < 30)) {
-			pet.mood = "angry";
+		else if ((this.pet.hunger >= 30) && (this.pet.happiness < 30)) {
+			this.pet.mood = MoodKeys.ANGRY;
 		}
-		else if ((pet.hunger <= 0) && (!globalVal.godMode)) {
-			pet.mood = "dead";
+		else if ((this.pet.hunger <= 0) && (!globalVal.godMode)) {
+			this.pet.mood = MoodKeys.DEAD;
 		}
-		else if ((pet.hunger < 30) || (pet.sick)) {
-			pet.mood = "sad";
+		else if ((this.pet.hunger < 30) || (this.pet.sick)) {
+			this.pet.mood = MoodKeys.SAD;
 		}
 		else {
-			pet.mood = "neutral";
+			this.pet.mood = MoodKeys.NEUTRAL;
 		}
 
 
