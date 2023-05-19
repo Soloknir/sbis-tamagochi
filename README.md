@@ -2,7 +2,7 @@
 
 ## Запуск сервера для разработки:
 ```properties
-npm run start
+npm ci && npm run start
 ```
 
 ## Деплой приложения
