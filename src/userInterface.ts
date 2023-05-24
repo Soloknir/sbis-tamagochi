@@ -186,7 +186,7 @@ export default class UIScene extends Phaser.Scene {
 		}
 		this.mainText.text = array[this.slideCounter].mainText;
 		this.descText.text = array[this.slideCounter].descText;
-		this.costText.text = "Costs: $" + array[this.slideCounter].cost;
+		this.costText.text = "Стоимость: $" + array[this.slideCounter].cost;
 	}
 
 	printText(contents: string) {

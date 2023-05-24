@@ -71,7 +71,7 @@ export class TamagochiLoadScene extends Phaser.Scene {
 			frameHeight: 64,
 		});
 
-		this.load.bitmapFont("pixel", "assets/font/pixelFont.png", "assets/font/pixelFont.xml");
+		this.load.bitmapFont("pixel", "assets/font/pixeloid_mono_regular_10.png", "assets/font/pixeloid_mono_regular_10.xml");
 	}
 	create() {
 		this.scene.start("TamagochiMainScene");
@@ -247,7 +247,7 @@ export class TamagochiStatsScene extends UIScene {
 	update() {
 		tickCheck(this);
 		const { name, age, hunger, happiness } = this.pet;
-		this.text.text = `Name: ${name}\nAge: ${age}\nHunger: ${hunger}\nHappines: ${happiness}\nMoney: ${this.globalVal.money}`;
+		this.text.text = `Имя: ${name}\nВозраст: ${age}\nГолод: ${hunger}\nНастроение: ${happiness}\nДеньги: ${this.globalVal.money}`;
 	}
 }
 
@@ -384,7 +384,7 @@ export class TamagochiShopScene extends UIScene {
 	}
 	create() {
 		this.drawGameBody();
-		this.drawGameMenu("TamagochiShopFoodScene", "Buy Food", "TamagochiShopItemScene", "Buy Items");
+		this.drawGameMenu("TamagochiShopFoodScene", "Купить хавчик", "TamagochiShopItemScene", "Купить хлам");
 	}
 	update() {
 		tickCheck(this);

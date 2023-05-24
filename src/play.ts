@@ -1,5 +1,5 @@
 export class PlayItem {
- 	static rerunCounter = 0;
+ 	static rerunCounter = 1;
 
 	mainText: string;
 	descText: string;
@@ -22,29 +22,26 @@ export class PlayItem {
 			//purchasing from the store puts a foodItem instance into an inventory
 			case "buy":
 				if (this.cost > scene.globalVal.money) {
-					scene.addTempText("INSUFFICIENT FUNDS", 1);
-					console.log("INSUFFICIENT FUNDS");
+					scene.addTempText("Недостаточно денег", 1);
 					return;
 				}
 				scene.globalVal.money = scene.globalVal.money - this.cost;
 				//transfer item to your inventory
 				invPlayArray.push(this);
 				playArray.splice(playArray.indexOf(this), 1);
-				scene.addTempText("Purchased!", 1);
+				scene.addTempText("Куплено!", 1);
 				//game.state.start("main");
 				break;
 
 			//Uses an item
 			case "use":
 				if (this.useCost > scene.globalVal.money) {
-					console.log("INSUFFICIENT FUNDS");
-					scene.addTempText("INSUFFICIENT FUNDS", 1);
+					scene.addTempText("Недостаточно денег", 1);
 					return;
 				}
-				if (this.mainText == "PetFlix") {
+				if (this.mainText == "SbisOnline") {
 					PlayItem.rerunCounter++;
-					//update the text in the object
-					this.descText = "Watch reruns of 'The Office',\nfor the " + PlayItem.rerunCounter + "th time.\nCosts $3";
+					this.descText = "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\nСтоимость $3";
 				}
 				scene.pet.happiness += this.happinessRestore;
 				scene.globalVal.money = scene.globalVal.money - this.useCost;
@@ -57,19 +54,17 @@ export class PlayItem {
 
 //TODO: allow for new playItems to be stacked onto this array when purchased from the shop
 export const invPlayArray = [
-	new PlayItem("Vacation", 0, 0, 100, "Chill\nCosts $100", 100),
-	new PlayItem("Board Games", 1, 0, 1, "More like Bored Games amiright\nCosts $1", 5),
-	new PlayItem("Work", 2, 0, -50, "Make $$$, but at the expense\n of some happiness.\nPays $50", -10),
-	new PlayItem("PetFlix", 3, 0, 3, "Watch reruns of 'The Office',\nfor the " + PlayItem.rerunCounter + "th time.\nCosts $3", 5),
-	new PlayItem("PRAISE STEVE JOBS", 4, 0, 999, "APPLE DOES WHAT WINDON'T\nCosts $999", 40)
+	new PlayItem("Отпуск", 0, 0, 100, "Долгожданный отдых\nСтоимость $100", 100),
+	new PlayItem("Настолки", 1, 0, 1, "Играйте вместе! \nСтоимость $1", 5),
+	new PlayItem("Работа", 2, 0, -50, "Обменять настроение\n на деньги.\nОплата $50", -10),
+	new PlayItem("SbisOnline", 3, 0, 0, "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\nЭто бесплатно:D", 1),
 ];
 
 export const playArray = [
-	new PlayItem("Pencil", 5, 100, 0, "Draw some of stuff", 11),
-	new PlayItem("Dumbbell", 6, 500, 0, "Get big quick", 20),
-	new PlayItem("Computer", 7, 1000, 0, "Wow so cool", 15),
-	new PlayItem("Plant", 8, 400, 0, "Talk to the plant or something", 4),
-	new PlayItem("S8B04RD", 9, 800, 0, "R4D D00D3", 33),
-	new PlayItem("Drums", 10, 400, 0, "Very loud", 13),
-	new PlayItem("Fishing Rod", 11, 1000, 0, "*Doesn't actually catch things", 40),
+	new PlayItem("Карандаш", 5, 100, 0, "Ручка для космонавтов", 11),
+	new PlayItem("Компьютер", 7, 1000, 0, "На чём ты работал до этого?", 15),
+	new PlayItem("Кустик", 8, 400, 0, "Позаботься о нём", 4),
+	new PlayItem("Что это такое?", 9, 800, 0, "Если бы мы знали что это такое", 33),
+	new PlayItem("Барабан", 10, 400, 0, "Выбеси соседей", 13),
+	new PlayItem("Удочка", 11, 1000, 0, "*Жаль негде ловить рыбу", 40),
 ]
