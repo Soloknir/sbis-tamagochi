@@ -13,7 +13,7 @@ export class SettingItem {
 		this.nameVal = nameVal;
 	}
 
-	select() {
+	select({ globalVal, addTempText } : any) {
 		this.affectingVal = !this.affectingVal;
 		if (this.affectingVal) {
 			addTempText("Enabled!", 0.7);
@@ -42,10 +42,10 @@ export class SettingItem {
 }
 
 export const settingArray = [
-	new SettingItem("Enable/Disable Counter", 0, "Enable tick counter\n& ruin fun", globalVal.counterEnabled, "counterEnabled"),
-	new SettingItem("Enable/Disable God Mode", 0, "Pet cannot die", globalVal.godMode, "godMode"),
-	new SettingItem('"Invest" in Crypto', 0, "Get $10 every now and then", globalVal.ezMoney, "ezMoney"),
-	new SettingItem("Enable/Disable\nFast Food", 0, "Pet doesn't poop", globalVal.noToilet, "noToilet"),
-	new SettingItem("Enable/Disable\nCamo Ninjas", 0, "Camoflauge Ninjas\n sometimes appear", globalVal.camoNinjas, "camoNinjas"),
+	// new SettingItem("Enable/Disable Counter", 0, "Enable tick counter\n& ruin fun", globalVal.counterEnabled, "counterEnabled"),
+	// new SettingItem("Enable/Disable God Mode", 0, "Pet cannot die", globalVal.godMode, "godMode"),
+	// new SettingItem('"Invest" in Crypto', 0, "Get $10 every now and then", globalVal.ezMoney, "ezMoney"),
+	// new SettingItem("Enable/Disable\nFast Food", 0, "Pet doesn't poop", globalVal.noToilet, "noToilet"),
+	// new SettingItem("Enable/Disable\nCamo Ninjas", 0, "Camoflauge Ninjas\n sometimes appear", globalVal.camoNinjas, "camoNinjas"),
 ];
 

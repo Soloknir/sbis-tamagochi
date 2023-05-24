@@ -99,7 +99,6 @@ function drawGameUI (array, spriteSheet) {
 //changeSlide() is used to pass through various arrays
 //an array must be defined in each state in order to be parsed by this function.
 function changeSlide (button) {
-	//console.log(button.variable);
 	switch (button.name) {
 		case "backward":
 			slideCounter--;
@@ -863,7 +862,6 @@ function tick () {
 		globalVal.money += 10;
 	}
 	tickCounter++;
-	console.log("tick");
 	pet.hunger = pet.hunger - 3;
 	pet.happiness = pet.happiness - 2;
 

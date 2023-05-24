@@ -5,59 +5,64 @@ export class SaveItem {
 	descText: string;
 	spriteIndex: number;
 
-	constructor(name, spriteIndex, desc) {
+	constructor(name: string, spriteIndex: number, desc: string) {
 		this.mainText = name;
 		this.descText = desc;
 		this.spriteIndex = spriteIndex;
 	}
 
-	select() {
+	select(scene: any) {
 		switch (this.mainText) {
 			case "Save":
-				saveStorage();
+				this.saveStorage();
 				break;
 			case "Load":
-				loadStorage();
+				this.loadStorage();
 				break;
 			case "Reset":
-				resetStorage();
+				this.resetStorage();
 				break;
 		}
-		game.state.start("main");
+
+		scene.scene.start("main");
 	}
 
 
 	//Attempt to load JSON with key string, and assign that to assignToVar, if cannot load JSON load abort and return false.
-	loadJSON(key) {
-		let loadedJSON = localStorage.getItem(key);
-		let testJSON = JSON.parse(loadedJSON);
-		console.log(JSON.parse(loadedJSON));
-		if (testJSON == null) {
-			addTempText("Cannot Load File!");
-			console.log("ERROR! Cannot load save!");
-			return false;
-		}
-		else {
-			console.log("hit");
-			return testJSON;
-		}
+	loadJSON(key: string) {
+		// let loadedJSON = localStorage.getItem(key);
+		// if (loadedJSON) {
+		// 	let testJSON = JSON.parse(loadedJSON);
+		// 	console.log(JSON.parse(loadedJSON));
+		// 	if (testJSON == null) {
+		// 		addTempText("Cannot Load File!");
+		// 		console.log("ERROR! Cannot load save!");
+		// 		return false;
+		// 	}
+		// 	else {
+		// 		console.log("hit");
+		// 		return testJSON;
+		// 	}
+		// }
 	}
 
 	loadStorage() {
 		//loaded object is string (only strings can be stored), so we take the string
 		//and "parse" it back into an object.
-		if (loadJSON("petSave")) {
-			pet = loadJSON("petSave");
-			globalVal = loadJSON("globalValSave");
+		// if (loadJSON("petSave")) {
+			// pet = loadJSON("petSave");
+			// globalVal = loadJSON("globalValSave");
 
 
-		}
+		// }
 	}
 
 	saveStorage() {
 		//convert our object into a sting and store it to the browser.
-		localStorage.setItem("petSave", JSON.stringify(pet));
-		localStorage.setItem("globalValSave", JSON.stringify(globalVal));
+
+		// localStorage.setItem("petSave", JSON.stringify(pet));
+		// localStorage.setItem("globalValSave", JSON.stringify(globalVal));
+
 		/*
 		localStorage.setItem("invFoodArraySave",JSON.stringify(invFoodArray));
 		localStorage.setItem("playArraySave",JSON.stringify(playArray));
@@ -66,8 +71,8 @@ export class SaveItem {
 	}
 
 	resetStorage() {
-		pet = JSON.parse(defaultPetJSON);
-		globalVal = JSON.parse(defaultGlobalValJSON);
+		// pet = JSON.parse(defaultPetJSON);
+		// globalVal = JSON.parse(defaultGlobalValJSON);
 		localStorage.removeItem("petSave");
 		localStorage.removeItem("globalValSave");
 	}
