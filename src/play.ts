@@ -52,7 +52,6 @@ export class PlayItem {
 	}
 }
 
-//TODO: allow for new playItems to be stacked onto this array when purchased from the shop
 export const invPlayArray = [
 	new PlayItem("Отпуск", 0, 0, 100, "Долгожданный отдых\nСтоимость $100", 100),
 	new PlayItem("Настолки", 1, 0, 1, "Играйте вместе! \nСтоимость $1", 5),

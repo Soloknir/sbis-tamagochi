@@ -1,17 +1,10 @@
+import { MoodKeys } from './enums';
 import { foodArray, invFoodArray } from './food';
 import { tick, tickCheck } from './helpers';
 import { invPlayArray, playArray } from './play';
 import { saveArray } from './save';
 import { settingArray } from './settings';
 import UIScene from './userInterface';
-
-enum MoodKeys {
-	HAPPY = 'HAPPY',
-	ANGRY = 'ANGRY',
-	DEAD = 'DEAD',
-	SAD = 'SAD',
-	NEUTRAL = 'NEUTRAL'
-}
 
 export class Pet extends Phaser.Plugins.BasePlugin {
 	name = "SBIS FOX";
@@ -97,18 +90,21 @@ export class TamagochiMain extends UIScene {
 		if (!TamagochiMain.animationsLoaded) {
 			this.createAnimations();
 		}
+
 		this.drawGameBody();
 
 		this.petSprite = this.add.sprite(camera.centerX, camera.centerY, "petSheet");
 		this.petSprite.setOrigin(0.5);
 		this.petSprite.setScale(2);
-		this.petSprite.play(MoodKeys.NEUTRAL);
+		this.petSprite.play(this.pet.mood);
 
 		this.counter = this.add.bitmapText(75, camera.centerY - 200, "pixel", "tickCounter", 32);
 		this.sickSprite = this.add.sprite(this.petSprite.x + 50, this.petSprite.y - 50, "ailmentSheet");
-
 		this.sickSprite.setOrigin(0.9, 0.5);
 		this.sickSprite.play("sick");
+		if (this.pet.mood === MoodKeys.DEAD) {
+			this.sickSprite.setAlpha(0);
+		}
 
 		const poopSprite0 = this.add.sprite(WIDTH * (3 / 4), HEIGHT * ((2 + 2) / 7), "ailmentSheet");
 		poopSprite0.setScale(0.45, 0.45);
@@ -130,7 +126,6 @@ export class TamagochiMain extends UIScene {
 
 	update() {
 		tickCheck(this);
-		this.ailmentCheck();
 
 		if (this.globalVal.counterEnabled) {
 			this.counter.text = `${this.globalVal.tickCounter}`;
@@ -143,6 +138,8 @@ export class TamagochiMain extends UIScene {
 			return;
 		}
 	
+		this.ailmentCheck();
+
 		if ((this.pet.hunger > 50) && (this.pet.happiness >= 60)) {
 			if (this.pet.mood !== MoodKeys.HAPPY)
 				this.petSprite.play(MoodKeys.HAPPY);
@@ -153,6 +150,8 @@ export class TamagochiMain extends UIScene {
 			this.pet.mood = MoodKeys.ANGRY;
 		} else if ((this.pet.hunger <= 0) && (!this.globalVal.godMode)) {
 			this.pet.mood = MoodKeys.DEAD;
+			this.sickSprite.setAlpha(0);
+			this.petSprite.play(MoodKeys.DEAD);
 		} else if ((this.pet.hunger < 30) || (this.pet.sick)) {
 			if (this.pet.mood !== MoodKeys.SAD)
 				this.petSprite.play(MoodKeys.SAD);
@@ -214,18 +213,11 @@ export class TamagochiMain extends UIScene {
 
 	ailmentCheck() {
 		for (let i = 0; i < 3; i++) {
-			if (i < this.pet.poop) {
-				this.bugArray[i].alpha = 1;
-			}
-			else {
-				this.bugArray[i].alpha = 0;
-			}
+			this.bugArray[i].alpha = i < this.pet.poop ? 1 : 0;
 		}
-		if (this.pet.sick) {
-			this.sickSprite.alpha = 1;
-		}
-		else {
-			this.sickSprite.alpha = 0;
+
+		if (this.pet.mood !== MoodKeys.DEAD) {
+			this.sickSprite.alpha = this.pet.sick ? 1 : 0;
 		}
 	}
 }
@@ -256,7 +248,6 @@ export class TamagochiFastForwardScene extends UIScene {
 		super({ key: 'TamagochiFastForwardScene' }, rect);
 	}
 	create() {
-		this.drawGameBody();
 		tick(this);
 		this.scene.start("TamagochiLoadScene");
 	}
@@ -280,7 +271,6 @@ export class TamagochiMedicineScene extends UIScene {
 		super({ key: 'TamagochiMedicineScene' }, rect);
 	}
 	create() {
-		this.drawGameBody();
 		this.pet.sick = false;
 		this.scene.start("TamagochiMainScene");
 	}
