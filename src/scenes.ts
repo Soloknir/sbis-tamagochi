@@ -99,8 +99,9 @@ export class TamagochiMain extends UIScene {
 		this.petSprite.play(this.pet.mood);
 
 		this.counter = this.add.bitmapText(75, camera.centerY - 200, "pixel", "tickCounter", 32);
-		this.sickSprite = this.add.sprite(this.petSprite.x + 50, this.petSprite.y - 50, "ailmentSheet");
-		this.sickSprite.setOrigin(0.9, 0.5);
+		this.sickSprite = this.add.sprite(this.petSprite.x + 90, this.petSprite.y - 130, "ailmentSheet");
+		this.sickSprite.setScale(0.7, 0.7);
+		this.sickSprite.setOrigin(0.5, 0.5);
 		this.sickSprite.play("sick");
 		if (this.pet.mood === MoodKeys.DEAD) {
 			this.sickSprite.setAlpha(0);
