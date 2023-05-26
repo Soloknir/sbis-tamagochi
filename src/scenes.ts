@@ -375,7 +375,7 @@ export class TamagochiShopScene extends UIScene {
 	}
 	create() {
 		this.drawGameBody();
-		this.drawGameMenu("TamagochiShopFoodScene", "Купить хавчик", "TamagochiShopItemScene", "Купить хлам");
+		this.drawGameMenu("TamagochiShopFoodScene", "Купить еду", "TamagochiShopItemScene", "Купить вещи");
 	}
 	update() {
 		tickCheck(this);

@@ -41,7 +41,7 @@ export class PlayItem {
 				}
 				if (this.mainText == "SbisOnline") {
 					PlayItem.rerunCounter++;
-					this.descText = "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\nСтоимость $3";
+					this.descText = "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\Это бесплатно:D $3";
 				}
 				scene.pet.happiness += this.happinessRestore;
 				scene.globalVal.money = scene.globalVal.money - this.useCost;
@@ -63,7 +63,7 @@ export const playArray = [
 	new PlayItem("Карандаш", 5, 100, 0, "Ручка для космонавтов", 11),
 	new PlayItem("Компьютер", 7, 1000, 0, "На чём ты работал до этого?", 15),
 	new PlayItem("Кустик", 8, 400, 0, "Позаботься о нём", 4),
-	new PlayItem("Что это такое?", 9, 800, 0, "Если бы мы знали что это такое", 33),
-	new PlayItem("Барабан", 10, 400, 0, "Выбеси соседей", 13),
+	new PlayItem("Скейтборд", 9, 800, 0, "Поехали кататься ", 33),
+	new PlayItem("Барабан", 10, 400, 0, "Бей в барабан, Музыка громче", 13),
 	new PlayItem("Удочка", 11, 1000, 0, "*Жаль негде ловить рыбу", 40),
 ]

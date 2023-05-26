@@ -41,7 +41,7 @@ export function tick({ globalVal, pet }: any) {
 	pet.poop = Math.min(Math.max(pet.poop, 0), 3);
 	if (pet.mood != MoodKeys.DEAD) {
 		//amount of poop alters probability of sickness
-		if (Math.random() < (0.05 * pet.poop)) {
+		if (Math.random() < (0.1 * pet.poop)) {
 			pet.sick = true;
 		}
 
