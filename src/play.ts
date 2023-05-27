@@ -1,3 +1,5 @@
+import { SceneKeys } from "./enums";
+
 export class PlayItem {
  	static rerunCounter = 1;
 
@@ -46,7 +48,7 @@ export class PlayItem {
 				scene.pet.happiness += this.happinessRestore;
 				scene.globalVal.money = scene.globalVal.money - this.useCost;
 
-				scene.scene.start("TamagochiMainScene");
+				scene.scene.start(SceneKeys.MAIN);
 				break;
 		}
 	}

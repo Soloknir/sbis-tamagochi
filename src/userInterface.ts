@@ -1,68 +1,6 @@
-interface IButtonConfig {
-	x: number;
-	y: number;
-	sheet: string;
-	frame?: number;
-	desc?: string;
-	sceneKey?: string;
-	variable?: any;
-	mode?: any;
-}
+import { SpriteButton, TextButton } from "./components/buttons";
+import { FrameSheets, SceneKeys, SlideMenuActions } from "./enums";
 
-export enum SlideMenuActions {
-	BACKWARD = 'BACKWARD',
-	FORWARD = 'FORWARD',
-	SELECT = 'SELECT'
-}
-
-export class SpriteButton {
-	button: Phaser.GameObjects.Sprite;
-	desc?: string;
-	sceneKey?: string;
-	variable?: any;
-	mode?: any;
-
-	constructor(scene: Phaser.Scene, config: IButtonConfig, callback: (...params: any) => any) {
-		const { x, y, sheet, frame, desc, sceneKey, variable, mode } = config;
-		this.button = scene.add.sprite(x, y, sheet, frame);
-		this.button.setOrigin(0.5)
-			.setInteractive({ useHandCursor: true })
-			.on('pointerdown', () => callback(this, this));
-
-		this.desc = desc;
-		this.sceneKey = sceneKey;
-		this.variable = variable;
-		this.mode = mode;
-	}
-}
-
-export class TextButton {
-	button: Phaser.GameObjects.Sprite;
-	text: Phaser.GameObjects.BitmapText;
-	desc?: string;
-	sceneKey?: string;
-	variable?: any;
-	mode?: any;
-
-	constructor(scene: Phaser.Scene, config: IButtonConfig & { title: string, fontSize: number}, callback: (...params: any) => any) {
-		const { x, y, sheet, frame, desc, sceneKey, variable, mode, title, fontSize } = config;
-		
-		this.button = scene.add.sprite(x, y, sheet, frame);
-		this.button.setDisplaySize(title.length * fontSize * 2, fontSize * 3);
-		this.button.setOrigin(0.5)
-			.setInteractive({ useHandCursor: true })
-			.on('pointerdown', () => callback(this, this));
-
-		this.text = scene.add.bitmapText(x, y, 'pixel', title, fontSize);
-		this.text.setOrigin(0.5);
-		this.text.setCenterAlign();
-
-		this.desc = desc;
-		this.sceneKey = sceneKey;
-		this.variable = variable;
-		this.mode = mode;
-	}
-}
 
 
 export default class UIScene extends Phaser.Scene {
@@ -94,7 +32,7 @@ export default class UIScene extends Phaser.Scene {
 			{
 				x: this.width * (4 / 6),
 				y: this.height * (2 / 6),
-				sheet: "buttonSheet",
+				sheet: FrameSheets.BUTTON,
 				frame: 10,
 				desc: desc1,
 				sceneKey: state1,
@@ -107,7 +45,7 @@ export default class UIScene extends Phaser.Scene {
 			{
 				x: this.width * (4 / 6),
 				y: this.height * (4 / 6),
-				sheet: "buttonSheet",
+				sheet: FrameSheets.BUTTON,
 				frame: 10,
 				desc: desc2,
 				sceneKey: state2,
@@ -127,7 +65,7 @@ export default class UIScene extends Phaser.Scene {
 		}
 	}
 
-	drawGameUI(array: any[], spriteSheet: string) {
+	drawSliderUI(array: any[], spriteSheet: string) {
 		const camera = this.cameras.main;
 		this.slideCounter = 0;
 		this.buttons[10] = new SpriteButton(
@@ -135,7 +73,7 @@ export default class UIScene extends Phaser.Scene {
 			{
 				x: this.width * (1 / 6),
 				y: camera.centerY,
-				sheet: "buttonSheet",
+				sheet: FrameSheets.BUTTON,
 				frame: 11,
 				sceneKey: SlideMenuActions.BACKWARD,
 			},
@@ -147,7 +85,7 @@ export default class UIScene extends Phaser.Scene {
 			{
 				x: this.width * (5 / 6),
 				y: camera.centerY,
-				sheet: "buttonSheet",
+				sheet: FrameSheets.BUTTON,
 				frame: 10,
 				sceneKey: SlideMenuActions.FORWARD,
 			},
@@ -159,7 +97,7 @@ export default class UIScene extends Phaser.Scene {
 			{
 				x: camera.centerX,
 				y: this.height * (7 / 9),
-				sheet: "buttonSheet",
+				sheet: FrameSheets.BUTTON,
 				frame: 12,
 				sceneKey: SlideMenuActions.SELECT,
 				variable: array,
@@ -248,81 +186,65 @@ export default class UIScene extends Phaser.Scene {
 		this.buttons[0] = new SpriteButton(this, {
 			x: this.width * (1 / 6),
 			y: this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 0,
-			sceneKey: "TamagochiStatsScene",
+			sceneKey: SceneKeys.STATS,
 		}, this.changeState.bind(this));
 
 		this.buttons[1] = new SpriteButton(this, {
 			x: this.width * (2 / 6),
 			y: this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 2,
-			sceneKey: "TamagochiFoodScene",
+			sceneKey: SceneKeys.FOOD,
 		}, this.changeState.bind(this)); 
 
 		this.buttons[2] = new SpriteButton(this, {
 			x: this.width * (3 / 6),
 			y: this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 1,
-			sceneKey: "TamagochiToiletScene",
+			sceneKey: SceneKeys.TOILET,
 		}, this.changeState.bind(this));
 
 		this.buttons[3] = new SpriteButton(this, {
 			x: this.width * (4 / 6),
 			y: this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 3,
-			sceneKey: "TamagochiPlayScene",
+			sceneKey: SceneKeys.PLAY,
 		}, this.changeState.bind(this));
 
 		this.buttons[4] = new SpriteButton(this, {
 			x: this.width * (5 / 6),
 			y: this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 4,
-			sceneKey: "TamagochiFastForwardScene",
+			sceneKey: SceneKeys.FAST_FORWARD,
 		}, this.changeState.bind(this));
-
-		// this.buttons[5] = new SpriteButton(this, {
-		// 	x: this.width * (1 / 6),
-		// 	y: this.height - this.buttonDispX,
-		// 	sheet: "buttonSheet",
-		// 	frame: 5,
-		// 	sceneKey: "TamagochiSaveScene",
-		// }, this.changeState.bind(this));
 
 		this.buttons[6] = new SpriteButton(this, {
 			x: this.width * (2 / 6),
 			y: this.height - this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 6,
-			sceneKey: "TamagochiMedicineScene",
+			sceneKey: SceneKeys.MEDICINE,
 		}, this.changeState.bind(this));
 
 		this.buttons[7] = new SpriteButton(this, {
 			x: this.width * (3 / 6),
 			y: this.height - this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 7,
-			sceneKey: "TamagochiShopScene",
+			sceneKey: SceneKeys.SHOP,
 		}, this.changeState.bind(this));
-
-		// this.buttons[8] = new SpriteButton(this, {
-		// 	x: this.width * (4 / 6),
-		// 	y: this.height - this.buttonDispX,
-		// 	sheet: "buttonSheet",
-		// 	frame: 8,
-		// 	sceneKey: "TamagochiSettingScene",
-		// }, this.changeState.bind(this));
 
 		this.buttons[9] = new SpriteButton(this, {
 			x: this.width * (4 / 6),
 			y: this.height - this.buttonDispX,
-			sheet: "buttonSheet",
+			sheet: FrameSheets.BUTTON,
 			frame: 9,
-			sceneKey: "TamagochiMainScene",
+			sceneKey: SceneKeys.MAIN,
 		}, this.changeState.bind(this));
 	}
 

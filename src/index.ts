@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { GameState, Pet, TamagochiFastForwardScene, TamagochiFoodScene, TamagochiMedicineScene, TamagochiPlayScene, TamagochiSaveScene, TamagochiSettingScene, TamagochiShopFoodScene, TamagochiShopItemScene, TamagochiShopScene, TamagochiStatsScene, TamagochiToiletScene, TamagochiLoadScene, TamagochiMain } from "./scenes"
-
+import * as Scenes from "./scenes"
+import { Pet, GameState } from './globalObjects';
 
 function loadGame() {
 	const canvas: HTMLCanvasElement | null = document.getElementById("canvas") as HTMLCanvasElement;
@@ -19,19 +19,19 @@ function loadGame() {
 			]
 		},
 		scene: [
-			TamagochiLoadScene,
-			TamagochiMain,
-			TamagochiStatsScene,
-			TamagochiFastForwardScene,
-			TamagochiToiletScene,
-			TamagochiMedicineScene,
-			TamagochiSettingScene,
-			TamagochiSaveScene,
-			TamagochiFoodScene,
-			TamagochiPlayScene,
-			TamagochiShopScene,
-			TamagochiShopItemScene,
-			TamagochiShopFoodScene
+			Scenes.TamagochiLoadScene,
+			Scenes.TamagochiMainScene,
+			Scenes.TamagochiStatsScene,
+			Scenes.TamagochiFastForwardScene,
+			Scenes.TamagochiToiletScene,
+			Scenes.TamagochiMedicineScene,
+			Scenes.TamagochiSettingScene,
+			Scenes.TamagochiSaveScene,
+			Scenes.TamagochiFoodScene,
+			Scenes.TamagochiPlayScene,
+			Scenes.TamagochiShopScene,
+			Scenes.TamagochiShopItemScene,
+			Scenes.TamagochiShopFoodScene
 		]
 	};
 

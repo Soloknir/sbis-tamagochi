@@ -1,3 +1,5 @@
+import { SceneKeys } from "./enums";
+
 export class FoodItem {
 	mainText: string;
 	descText: string;
@@ -32,7 +34,7 @@ export class FoodItem {
 			case "use":
 				scene.pet.hunger = scene.pet.hunger + this.hungRestore;
 				invFoodArray.splice(invFoodArray.indexOf(this), 1);
-				scene.scene.start("TamagochiMainScene");
+				scene.scene.start(SceneKeys.MAIN);
 				break;
 		}
 
