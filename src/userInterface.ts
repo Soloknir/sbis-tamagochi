@@ -9,6 +9,12 @@ interface IButtonConfig {
 	mode?: any;
 }
 
+export enum SlideMenuActions {
+	BACKWARD = 'BACKWARD',
+	FORWARD = 'FORWARD',
+	SELECT = 'SELECT'
+}
+
 export class SpriteButton {
 	button: Phaser.GameObjects.Sprite;
 	desc?: string;
@@ -27,9 +33,37 @@ export class SpriteButton {
 		this.sceneKey = sceneKey;
 		this.variable = variable;
 		this.mode = mode;
-
 	}
 }
+
+export class TextButton {
+	button: Phaser.GameObjects.Sprite;
+	text: Phaser.GameObjects.BitmapText;
+	desc?: string;
+	sceneKey?: string;
+	variable?: any;
+	mode?: any;
+
+	constructor(scene: Phaser.Scene, config: IButtonConfig & { title: string, fontSize: number}, callback: (...params: any) => any) {
+		const { x, y, sheet, frame, desc, sceneKey, variable, mode, title, fontSize } = config;
+		
+		this.button = scene.add.sprite(x, y, sheet, frame);
+		this.button.setDisplaySize(title.length * fontSize * 2, fontSize * 3);
+		this.button.setOrigin(0.5)
+			.setInteractive({ useHandCursor: true })
+			.on('pointerdown', () => callback(this, this));
+
+		this.text = scene.add.bitmapText(x, y, 'pixel', title, fontSize);
+		this.text.setOrigin(0.5);
+		this.text.setCenterAlign();
+
+		this.desc = desc;
+		this.sceneKey = sceneKey;
+		this.variable = variable;
+		this.mode = mode;
+	}
+}
+
 
 export default class UIScene extends Phaser.Scene {
 	width: number;
@@ -37,7 +71,7 @@ export default class UIScene extends Phaser.Scene {
 	buttonDispX: number;
 	
 	background: Phaser.GameObjects.Sprite;
-	buttons: SpriteButton[] = [];
+	buttons: any[] = [];
 
 	slideCounter = 0;
 	sprite: Phaser.GameObjects.Sprite;
@@ -103,7 +137,7 @@ export default class UIScene extends Phaser.Scene {
 				y: camera.centerY,
 				sheet: "buttonSheet",
 				frame: 11,
-				sceneKey: "backward",
+				sceneKey: SlideMenuActions.BACKWARD,
 			},
 			this.changeSlide.bind(this)
 		);
@@ -115,21 +149,22 @@ export default class UIScene extends Phaser.Scene {
 				y: camera.centerY,
 				sheet: "buttonSheet",
 				frame: 10,
-				sceneKey: "forward",
+				sceneKey: SlideMenuActions.FORWARD,
 			},
 			this.changeSlide.bind(this)
 		);
 
-		this.buttons[12] = new SpriteButton(
+		this.buttons[12] = new TextButton(
 			this,
 			{
 				x: camera.centerX,
 				y: this.height * (7 / 9),
 				sheet: "buttonSheet",
 				frame: 12,
-				sceneKey: "select",
-				variable: array
-				// button12.variable = array;
+				sceneKey: SlideMenuActions.SELECT,
+				variable: array,
+				title: 'Выбрать',
+				fontSize: 16
 			},
 			this.changeSlide.bind(this)
 		);
@@ -152,13 +187,13 @@ export default class UIScene extends Phaser.Scene {
 
 	changeSlide(button: SpriteButton) {
 		switch (button.sceneKey) {
-			case "backward":
+			case SlideMenuActions.BACKWARD:
 				this.slideCounter--;
 				break;
-			case "forward":
+			case SlideMenuActions.FORWARD:
 				this.slideCounter++;
 				break;
-			case "select":
+			case SlideMenuActions.SELECT:
 				button.variable[this.slideCounter].select(button.mode, this);
 				break;
 		}
