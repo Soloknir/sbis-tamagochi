@@ -36,3 +36,9 @@ export enum SceneKeys {
 	ITEM_SHOP = 'TamagochiShopItemScene',
 	FOOD_SHOP = 'TamagochiShopFoodScene',
 }
+
+export enum FontSizes {
+	BIG = 32,
+	MEDIUM = 22,
+	SMALL = 16
+}

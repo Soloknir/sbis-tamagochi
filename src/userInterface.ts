@@ -111,15 +111,15 @@ export default class UIScene extends Phaser.Scene {
 		this.sprite.setFrame(0);
 		this.sprite.setOrigin(0.5);
 
-		this.mainText = this.add.bitmapText(camera.centerX, this.height * (1 / 4), "pixel", "Empty!", 32);
+		this.mainText = this.add.bitmapText(camera.centerX, this.height * (1 / 4), "pixel", "Пусто!", 32);
 		this.mainText.setOrigin(0.5);
 		this.mainText.setCenterAlign();
 
-		this.descText = this.add.bitmapText(camera.centerX, this.height * (4 / 6), "pixel", "You're out of food!", 22);
+		this.descText = this.add.bitmapText(camera.centerX, this.height * (4 / 6), "pixel", "У вас нет еды!", 22);
 		this.descText.setOrigin(0.5);
 		this.descText.setCenterAlign();
 
-		this.costText = this.add.bitmapText(camera.centerX, this.height * (4 / 6) + 44, "pixel", "ERROR", 22);
+		this.costText = this.add.bitmapText(camera.centerX, this.height * (4 / 6) + 44, "pixel", "Ошибка", 22);
 		this.costText.setOrigin(0.5);
 	}
 

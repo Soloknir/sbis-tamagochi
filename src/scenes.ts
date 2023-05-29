@@ -38,7 +38,7 @@ export class TamagochiLoadScene extends Phaser.Scene {
 			frameHeight: 64,
 		});
 
-		this.load.bitmapFont("pixel", "assets/font/pixeloid_mono_regular_10.png", "assets/font/pixeloid_mono_regular_10.xml");
+		this.load.bitmapFont("pixel", "assets/font/open_sans_regular_32.png", "assets/font/open_sans_regular_32.xml");
 	}
 	create() {
 		this.scene.start(SceneKeys.MAIN);
@@ -209,7 +209,7 @@ export class TamagochiStatsScene extends UIScene {
 		this.drawGameBody();
 		this.pet.happiness = Math.min(Math.max(this.pet.happiness, 0), 100);
 		this.pet.hunger = Math.min(Math.max(this.pet.hunger, 0), 100);
-		this.text = this.add.bitmapText(75, camera.centerY - 200, "pixel", "ERROR", 32);
+		this.text = this.add.bitmapText(75, camera.centerY - 200, "pixel", "Ошибка", 32);
 	};
 	update() {
 		tickCheck(this);
