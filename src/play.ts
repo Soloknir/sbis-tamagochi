@@ -32,7 +32,6 @@ export class PlayItem {
 				invPlayArray.push(this);
 				playArray.splice(playArray.indexOf(this), 1);
 				scene.addTempText("Куплено!", 1);
-				//game.state.start("main");
 				break;
 
 			//Uses an item
@@ -43,7 +42,7 @@ export class PlayItem {
 				}
 				if (this.mainText == "SbisOnline") {
 					PlayItem.rerunCounter++;
-					this.descText = "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\Это бесплатно:D $3";
+					this.descText = "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.";
 				}
 				scene.pet.happiness += this.happinessRestore;
 				scene.globalVal.money = scene.globalVal.money - this.useCost;
@@ -55,10 +54,10 @@ export class PlayItem {
 }
 
 export const invPlayArray = [
-	new PlayItem("Отпуск", 0, 0, 100, "Долгожданный отдых\nСтоимость $100", 100),
-	new PlayItem("Настолки", 1, 0, 1, "Играйте вместе! \nСтоимость $1", 5),
-	new PlayItem("Работа", 2, 0, -50, "Обменять настроение\n на деньги.\nОплата $50", -10),
-	new PlayItem("SbisOnline", 3, 0, 0, "Смотреть раздел 'Мотивация',\nв " + PlayItem.rerunCounter + " раз.\nЭто бесплатно:D", 1),
+	new PlayItem("Отпуск", 0, 0, 100, "Долгожданный отдых", 100),
+	new PlayItem("Настолки", 1, 0, 1, "Играйте вместе!", 5),
+	new PlayItem("Работа", 2, 0, -50, "Обменять настроение на деньги.", -10),
+	new PlayItem("SbisOnline", 3, 0, 0, "Смотреть раздел 'Мотивация',в " + PlayItem.rerunCounter + " раз.", 1),
 ];
 
 export const playArray = [

@@ -261,7 +261,6 @@ export class TamagochiFoodScene extends UIScene {
 	create() {
 		this.drawGameBody();
 		this.drawSliderUI(invFoodArray, FrameSheets.FOOD);
-		this.costText.setAlpha(0);
 		this.buttons[ButtonKeys.SELECT].mode = "use";
 
 		if (!invFoodArray.length) {
@@ -289,7 +288,6 @@ export class TamagochiPlayScene extends UIScene {
 	create() {
 		this.drawGameBody();
 		this.drawSliderUI(invPlayArray, FrameSheets.PLAY);
-		this.costText.setAlpha(0);
 		this.buttons[ButtonKeys.SELECT].mode = "use";
 	}
 	update() {

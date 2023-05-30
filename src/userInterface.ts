@@ -1,5 +1,6 @@
 import { SpriteButton, TextButton } from "./components/buttons";
 import { ButtonKeys, FontSizes, FrameSheets, MoodKeys, SceneKeys, SlideMenuActions } from "./enums";
+import { PlayItem } from "./play";
 
 
 
@@ -137,7 +138,7 @@ export default class UIScene extends Phaser.Scene {
 		}
 	}
 
-	displaySlide(array: any[]) { // detect type
+	displaySlide(array: any[]) {
 		this.slideCounter = Math.min(Math.max(this.slideCounter, 0), array.length - 1);
 		this.sprite.setFrame(array[this.slideCounter].spriteIndex);
 
@@ -159,7 +160,17 @@ export default class UIScene extends Phaser.Scene {
 		}
 		this.mainText.text = array[this.slideCounter].mainText;
 		this.descText.text = array[this.slideCounter].descText;
-		this.costText.text = "Стоимость: $" + array[this.slideCounter].cost;
+
+		const cost = array[this.slideCounter].cost || array[this.slideCounter].useCost;
+		this.costText.text = cost > 0
+			? `Стоимость: ${cost}\$`
+			: `Оплата: ${-cost}\$`;
+
+		const restore = array[this.slideCounter].happinessRestore || array[this.slideCounter].hungRestore;
+		const text = (array[this.slideCounter] instanceof PlayItem) ? 'Счастье' : 'Сытость';
+		this.costText.text += restore > 0
+			? ` (${text}: +${restore})`
+			: ` (${text}: ${restore})`
 	}
 
 	printText(contents: string) {
