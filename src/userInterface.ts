@@ -183,11 +183,15 @@ export default class UIScene extends Phaser.Scene {
 	}
 
 	addTempText(contents: string, duration: number) {
+		if (this.tempText?.alpha) {
+			return;
+		}
+		
 		const camera = this.cameras.main;
 		this.tempText = this.add.bitmapText(camera.centerX, camera.centerY * (3 / 4), "pixel", contents, FontSizes.BIG);
 		this.tempText.setOrigin(0.5);
 		this.tempText.setScale(0.5);
-		new Phaser.Time.TimerEvent({ delay: 500 * duration, callback: this.removeTempText.bind(this) });
+		setTimeout(this.removeTempText.bind(this), 500 * duration);
 	}
 
 	removeTempText() {
