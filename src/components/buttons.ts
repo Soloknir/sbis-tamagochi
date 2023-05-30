@@ -43,7 +43,8 @@ export class TextButton {
 		const { x, y, sheet, frame, desc, sceneKey, variable, mode, title, fontSize } = config;
 
 		this.button = scene.add.sprite(x, y, sheet, frame);
-		this.button.setDisplaySize(title.length * fontSize * 2, fontSize * 3);
+		const buttonWidth = Math.min(Math.max(100, title.length * fontSize * 1.5), 250);
+		this.button.setDisplaySize(buttonWidth, fontSize * 3);
 		this.button.setOrigin(0.5)
 			.setInteractive({ useHandCursor: true })
 			.on('pointerdown', () => callback(this, this));

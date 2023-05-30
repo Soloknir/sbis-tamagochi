@@ -20,15 +20,12 @@ export class FoodItem {
 		switch (mode) {
 			case "buy":
 				if (this.cost > scene.globalVal.money) {
-					scene.addTempText("INSUFFICIENT FUNDS", 1);
-					console.log("INSUFFICIENT FUNDS");
+					scene.addTempText("Недостаточно средств", 1);
 					return;
 				}
 				scene.globalVal.money = scene.globalVal.money - this.cost;
-				console.log("push");
 				invFoodArray.push(this);
-				scene.addTempText("Purchased!", 1);
-				//game.state.start("main");
+				scene.addTempText("Куплено!", 1);
 				break;
 			//Consumes an item
 			case "use":

@@ -25,13 +25,12 @@ function loadGame() {
 			Scenes.TamagochiFastForwardScene,
 			Scenes.TamagochiToiletScene,
 			Scenes.TamagochiMedicineScene,
-			Scenes.TamagochiSettingScene,
-			Scenes.TamagochiSaveScene,
 			Scenes.TamagochiFoodScene,
 			Scenes.TamagochiPlayScene,
 			Scenes.TamagochiShopScene,
 			Scenes.TamagochiShopItemScene,
-			Scenes.TamagochiShopFoodScene
+			Scenes.TamagochiShopFoodScene,
+			Scenes.TamagochiGameOverScene
 		]
 	};
 

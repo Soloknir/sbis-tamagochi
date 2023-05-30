@@ -1,10 +1,8 @@
-import { FrameSheets, MoodKeys, SceneKeys } from './enums';
+import { ButtonKeys, FontSizes, FrameSheets, MoodKeys, SceneKeys } from './enums';
 import { foodArray, invFoodArray } from './food';
 import { Pet, GameState } from './globalObjects';
 import { tick, tickCheck } from './helpers';
 import { invPlayArray, playArray } from './play';
-import { saveArray } from './save';
-import { settingArray } from './settings';
 import UIScene from './userInterface';
 
 const WIDTH = 800;
@@ -77,7 +75,7 @@ export class TamagochiMainScene extends UIScene {
 		this.petSprite.setScale(0.9);
 		this.petSprite.play(this.pet.mood);
 
-		this.counter = this.add.bitmapText(75, camera.centerY - 200, "pixel", "tickCounter", 32);
+		this.counter = this.add.bitmapText(75, camera.centerY - 200, "pixel", "tickCounter", FontSizes.BIG);
 		this.sickSprite = this.add.sprite(this.petSprite.x + 90, this.petSprite.y - 130, FrameSheets.AILMENT);
 		this.sickSprite.setScale(0.7, 0.7);
 		this.sickSprite.setOrigin(0.5, 0.5);
@@ -131,7 +129,7 @@ export class TamagochiMainScene extends UIScene {
 		} else if ((this.pet.hunger <= 0) && (!this.globalVal.godMode)) {
 			this.pet.mood = MoodKeys.DEAD;
 			this.sickSprite.setAlpha(0);
-			this.petSprite.play(MoodKeys.DEAD);
+			this.scene.start(SceneKeys.GAME_OVER);
 		} else if ((this.pet.hunger < 30) || (this.pet.sick)) {
 			if (this.pet.mood !== MoodKeys.SAD)
 				this.petSprite.play(MoodKeys.SAD);
@@ -214,7 +212,7 @@ export class TamagochiStatsScene extends UIScene {
 		this.drawGameBody();
 		this.pet.happiness = Math.min(Math.max(this.pet.happiness, 0), 100);
 		this.pet.hunger = Math.min(Math.max(this.pet.hunger, 0), 100);
-		this.text = this.add.bitmapText(75, camera.centerY - 200, "pixel", "Ошибка", 32);
+		this.text = this.add.bitmapText(75, camera.centerY - 200, "pixel", "Ошибка", FontSizes.BIG);
 	};
 	update() {
 		tickCheck(this);
@@ -256,54 +254,6 @@ export class TamagochiMedicineScene extends UIScene {
 	}
 }
 
-export class TamagochiSettingScene extends UIScene {
-	constructor() {
-		super({ key: SceneKeys.SETTINGS }, rect);
-	}
-	create() {
-		this.drawGameBody();
-		this.drawSliderUI(settingArray, FrameSheets.SAVE);
-		this.costText.setAlpha(0);
-		this.buttons[12].mode = "use";
-
-		if (!settingArray.length) {
-			this.buttons[11].button.setAlpha(0);
-			this.buttons[10].button.setAlpha(0);
-			this.buttons[12].button.setAlpha(0);
-			this.sprite.setAlpha(0);
-		}
-	}
-
-	update() {
-		this.displaySlide(settingArray);
-		tickCheck(this);
-	}
-}
-
-export class TamagochiSaveScene extends UIScene {
-	constructor() {
-		super({ key: SceneKeys.SAVE }, rect);
-	}
-
-	create() {
-		this.drawGameBody();
-		this.drawSliderUI(saveArray, FrameSheets.SAVE);
-		this.costText.setAlpha(0);
-		this.buttons[12].mode = "use";
-
-		if (!saveArray.length) {
-			this.buttons[12].button.setAlpha(0);
-			this.buttons[11].button.setAlpha(0);
-			this.buttons[10].button.setAlpha(0);
-			this.sprite.setAlpha(0);
-		}
-	}
-	update() {
-		this.displaySlide(saveArray);
-		tickCheck(this);
-	}
-}
-
 export class TamagochiFoodScene extends UIScene {
 	constructor() {
 		super({ key: SceneKeys.FOOD }, rect);
@@ -312,12 +262,12 @@ export class TamagochiFoodScene extends UIScene {
 		this.drawGameBody();
 		this.drawSliderUI(invFoodArray, FrameSheets.FOOD);
 		this.costText.setAlpha(0);
-		this.buttons[12].mode = "use";
+		this.buttons[ButtonKeys.SELECT].mode = "use";
 
 		if (!invFoodArray.length) {
-			this.buttons[12].button.setAlpha(0);
-			this.buttons[11].button.setAlpha(0);
-			this.buttons[10].button.setAlpha(0);
+			this.buttons[ButtonKeys.SELECT].button.setAlpha(0);
+			this.buttons[ButtonKeys.FORWARD].button.setAlpha(0);
+			this.buttons[ButtonKeys.BACKWARD].button.setAlpha(0);
 			this.sprite.setAlpha(0);
 		}
 	}
@@ -340,7 +290,7 @@ export class TamagochiPlayScene extends UIScene {
 		this.drawGameBody();
 		this.drawSliderUI(invPlayArray, FrameSheets.PLAY);
 		this.costText.setAlpha(0);
-		this.buttons[12].mode = "use";
+		this.buttons[ButtonKeys.SELECT].mode = "use";
 	}
 	update() {
 		this.displaySlide(invPlayArray);
@@ -368,7 +318,7 @@ export class TamagochiShopItemScene extends UIScene {
 	create() {
 		this.drawGameBody();
 		this.drawSliderUI(playArray, FrameSheets.PLAY);
-		this.buttons[12].mode = "buy";
+		this.buttons[ButtonKeys.SELECT].mode = "buy";
 	}
 	update() {
 		this.displaySlide(playArray);
@@ -383,10 +333,31 @@ export class TamagochiShopFoodScene extends UIScene {
 	create() {
 		this.drawGameBody();
 		this.drawSliderUI(foodArray, FrameSheets.FOOD);
-		this.buttons[12].mode = "buy";
+		this.buttons[ButtonKeys.SELECT].mode = "buy";
 	}
 	update() {
 		this.displaySlide(foodArray);
 		tickCheck(this);
+	}
+}
+
+export class TamagochiGameOverScene extends UIScene {
+	petSprite: Phaser.GameObjects.Sprite;
+
+	constructor() {
+		super({ key: SceneKeys.GAME_OVER }, rect);
+	}
+	create() {
+		this.drawGameOverUI(this.drawPet.bind(this));
+	}
+	update() {
+		tickCheck(this);
+	}
+	drawPet() {
+		const camera = this.cameras.main;
+		this.petSprite = this.add.sprite(camera.centerX, camera.centerY, FrameSheets.PET);
+		this.petSprite.setOrigin(0.5);
+		this.petSprite.setScale(2);
+		this.petSprite.play(MoodKeys.DEAD);
 	}
 }

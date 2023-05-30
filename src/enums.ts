@@ -12,6 +12,24 @@ export enum SlideMenuActions {
 	SELECT = 'SELECT'
 }
 
+export enum ButtonKeys {
+	STATS,
+	FOOD,
+	TOILET,
+	PLAY,
+	FAST_FORWARD,
+	MEDICINE,
+	SHOP,
+	MAIN,
+	FORWARD,
+	BACKWARD,
+	SELECT,
+	MENU_ITEM_1,
+	MENU_ITEM_2,
+	WAKEUP,
+	RESTART
+}
+
 export enum FrameSheets {
 	PET = 'PET',
 	FOOD = 'FOOD',
@@ -28,13 +46,12 @@ export enum SceneKeys {
 	FAST_FORWARD = 'TamagochiFastForwardScene',
 	TOILET = 'TamagochiToiletScene',
 	MEDICINE = 'TamagochiMedicineScene',
-	SETTINGS = 'TamagochiSettingScene',
-	SAVE = 'TamagochiSaveScene',
 	FOOD = 'TamagochiFoodScene',
 	PLAY = 'TamagochiPlayScene',
 	SHOP = 'TamagochiShopScene',
 	ITEM_SHOP = 'TamagochiShopItemScene',
 	FOOD_SHOP = 'TamagochiShopFoodScene',
+	GAME_OVER = 'TamagochiGameOverScene',
 }
 
 export enum FontSizes {
