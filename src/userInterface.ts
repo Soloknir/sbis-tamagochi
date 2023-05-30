@@ -161,10 +161,14 @@ export default class UIScene extends Phaser.Scene {
 		this.mainText.text = array[this.slideCounter].mainText;
 		this.descText.text = array[this.slideCounter].descText;
 
-		const cost = array[this.slideCounter].cost || array[this.slideCounter].useCost;
+		const cost = this.buttons[ButtonKeys.SELECT].mode === 'buy'
+			? array[this.slideCounter].cost
+			: array[this.slideCounter].useCost;
+
 		this.costText.text = cost > 0
-			? `Стоимость: ${cost}\$`
-			: `Оплата: ${-cost}\$`;
+			? `(Стоимость: ${cost}\$)`
+				: cost === 0
+				? '' : `(Оплата: ${-cost}\$)`;
 
 		const restore = array[this.slideCounter].happinessRestore || array[this.slideCounter].hungRestore;
 		const text = (array[this.slideCounter] instanceof PlayItem) ? 'Счастье' : 'Сытость';
