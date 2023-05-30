@@ -27,8 +27,13 @@ export class TamagochiLoadScene extends Phaser.Scene {
 			frameHeight: 128
 		};
 
+		const petObjectFrameSize = {
+			frameWidth: 256,
+			frameHeight: 256
+		};
+
 		this.load.image("background", "assets/art/background.png");
-		this.load.spritesheet(FrameSheets.PET, "assets/art/pet/petSheet.png", gameObjectFrameSize);
+		this.load.spritesheet(FrameSheets.PET, "assets/art/pet/petSheet.png", petObjectFrameSize);
 		this.load.spritesheet(FrameSheets.FOOD, "assets/art/items/foodSheet.png", gameObjectFrameSize);
 		this.load.spritesheet(FrameSheets.PLAY, "assets/art/items/playSheet.png", gameObjectFrameSize);
 		this.load.spritesheet(FrameSheets.SAVE, "assets/art/items/saveSheet.png", gameObjectFrameSize);
@@ -69,7 +74,7 @@ export class TamagochiMainScene extends UIScene {
 
 		this.petSprite = this.add.sprite(camera.centerX, camera.centerY, FrameSheets.PET);
 		this.petSprite.setOrigin(0.5);
-		this.petSprite.setScale(2);
+		this.petSprite.setScale(0.9);
 		this.petSprite.play(this.pet.mood);
 
 		this.counter = this.add.bitmapText(75, camera.centerY - 200, "pixel", "tickCounter", 32);
@@ -155,7 +160,7 @@ export class TamagochiMainScene extends UIScene {
 		});
 		this.anims.create({
 			key: MoodKeys.DEAD,
-			frames: this.anims.generateFrameNumbers(FrameSheets.PET, { start: 4, end: 5 }),
+			frames: this.anims.generateFrameNumbers(FrameSheets.PET, { start: 8, end: 9 }),
 			frameRate: 2,
 			repeat: -1
 		});
@@ -167,7 +172,7 @@ export class TamagochiMainScene extends UIScene {
 		});
 		this.anims.create({
 			key: MoodKeys.ANGRY,
-			frames: this.anims.generateFrameNumbers(FrameSheets.PET, { start: 8, end: 9 }),
+			frames: this.anims.generateFrameNumbers(FrameSheets.PET, { start: 4, end: 5 }),
 			frameRate: 2,
 			repeat: -1
 		});
