@@ -1,6 +1,6 @@
 import { SpriteButton, TextButton } from "./components/buttons";
 import { ButtonKeys, FontSizes, FrameSheets, MoodKeys, SceneKeys, SlideMenuActions } from "./enums";
-import { PlayItem } from "./play";
+import { playArray, PlayItem } from "./play";
 
 
 
@@ -133,13 +133,19 @@ export default class UIScene extends Phaser.Scene {
 				this.slideCounter++;
 				break;
 			case SlideMenuActions.SELECT:
-				button.variable[this.slideCounter].select(button.mode, this);
+				button.variable[this.slideCounter]?.select(button.mode, this);
 				break;
 		}
 	}
 
 	displaySlide(array: any[]) {
-		this.slideCounter = Math.min(Math.max(this.slideCounter, 0), array.length - 1);
+		const newCounterValue = Math.min(Math.max(this.slideCounter, 0), array.length - 1)
+		if (array.length === 0) {
+			this.scene.start(SceneKeys.MAIN);
+			return;
+		}
+
+		this.slideCounter = newCounterValue;
 		this.sprite.setFrame(array[this.slideCounter].spriteIndex);
 
 		if ((this.slideCounter == 0) && (array.length == 1)) {
@@ -261,7 +267,7 @@ export default class UIScene extends Phaser.Scene {
 			y: this.height - this.buttonDispX,
 			sheet: FrameSheets.BUTTON,
 			frame: 7,
-			sceneKey: SceneKeys.SHOP,
+			sceneKey: playArray.length > 0 ? SceneKeys.SHOP : SceneKeys.FOOD_SHOP,
 			tooltip: 'Магазин'
 		}, this.changeState.bind(this));
 
