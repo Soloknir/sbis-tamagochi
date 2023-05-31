@@ -42,7 +42,7 @@ export class TamagochiLoadScene extends Phaser.Scene {
 		});
 
 		this.load.bitmapFont("pixel", "assets/font/open_sans_regular_32.png", "assets/font/open_sans_regular_32.xml");
-		this.load.audio('background', 'assets/sounds/background.wav');
+		this.load.audio('background', 'assets/sounds/background.mp3');
 	}
 	create() {
 		const music = this.sound.add('background', { volume: 0.4 });
