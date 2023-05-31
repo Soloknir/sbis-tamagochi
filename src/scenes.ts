@@ -46,7 +46,7 @@ export class TamagochiLoadScene extends Phaser.Scene {
 	}
 	create() {
 		const music = this.sound.add('background', { volume: 0.4 });
-		music.loop = true
+		music.setLoop(true);
 		music.play();
 
 		this.scene.start(SceneKeys.MAIN);
