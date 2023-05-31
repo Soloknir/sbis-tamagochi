@@ -167,7 +167,7 @@ export default class UIScene extends Phaser.Scene {
 
 		this.costText.text = cost > 0
 			? `(Стоимость: ${cost}\$)`
-				: cost === 0
+			: !cost || cost === 0
 				? '' : `(Оплата: ${-cost}\$)`;
 
 		const restore = array[this.slideCounter].happinessRestore || array[this.slideCounter].hungRestore;

@@ -30,13 +30,13 @@ export class TamagochiLoadScene extends Phaser.Scene {
 			frameHeight: 256
 		};
 
-		this.load.image("background", "assets/art/background.png");
-		this.load.spritesheet(FrameSheets.PET, "assets/art/pet/petSheet.png", petObjectFrameSize);
-		this.load.spritesheet(FrameSheets.FOOD, "assets/art/items/foodSheet.png", gameObjectFrameSize);
-		this.load.spritesheet(FrameSheets.PLAY, "assets/art/items/playSheet.png", gameObjectFrameSize);
-		this.load.spritesheet(FrameSheets.SAVE, "assets/art/items/saveSheet.png", gameObjectFrameSize);
-		this.load.spritesheet(FrameSheets.AILMENT, "assets/art/pet/ailmentSheet.png", gameObjectFrameSize);
-		this.load.spritesheet(FrameSheets.BUTTON, "assets/art/buttonSheet.png", {
+		this.load.image("background", "assets/images/background.png");
+		this.load.spritesheet(FrameSheets.PET, "assets/images/pet/petSheet.png", petObjectFrameSize);
+		this.load.spritesheet(FrameSheets.FOOD, "assets/images/items/foodSheet.png", gameObjectFrameSize);
+		this.load.spritesheet(FrameSheets.PLAY, "assets/images/items/playSheet.png", gameObjectFrameSize);
+		this.load.spritesheet(FrameSheets.SAVE, "assets/images/items/saveSheet.png", gameObjectFrameSize);
+		this.load.spritesheet(FrameSheets.AILMENT, "assets/images/pet/ailmentSheet.png", gameObjectFrameSize);
+		this.load.spritesheet(FrameSheets.BUTTON, "assets/images/buttonSheet.png", {
 			frameWidth: 64,
 			frameHeight: 64,
 		});
