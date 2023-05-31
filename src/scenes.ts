@@ -269,6 +269,7 @@ export class TamagochiFoodScene extends UIScene {
 
 		if (!invFoodArray.length) {
 			this.buttons[ButtonKeys.SELECT].button.setAlpha(0);
+			this.buttons[ButtonKeys.SELECT].text?.setAlpha(0);
 			this.buttons[ButtonKeys.FORWARD].button.setAlpha(0);
 			this.buttons[ButtonKeys.BACKWARD].button.setAlpha(0);
 			this.sprite.setAlpha(0);

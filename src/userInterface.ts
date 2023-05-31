@@ -120,7 +120,7 @@ export default class UIScene extends Phaser.Scene {
 		this.descText.setOrigin(0.5);
 		this.descText.setCenterAlign();
 
-		this.costText = this.add.bitmapText(camera.centerX, this.height * (4 / 6) + 44, "pixel", "Ошибка", FontSizes.SMALL);
+		this.costText = this.add.bitmapText(camera.centerX, this.height * (4 / 6) + 44, "pixel", "", FontSizes.SMALL);
 		this.costText.setOrigin(0.5);
 	}
 
