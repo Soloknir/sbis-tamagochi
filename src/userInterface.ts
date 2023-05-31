@@ -208,6 +208,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 0,
 			sceneKey: SceneKeys.STATS,
+			tooltip: 'Состояние'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.FOOD] = new SpriteButton(this, {
@@ -216,6 +217,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 2,
 			sceneKey: SceneKeys.FOOD,
+			tooltip: 'Еда'
 		}, this.changeState.bind(this)); 
 
 		this.buttons[ButtonKeys.TOILET] = new SpriteButton(this, {
@@ -224,6 +226,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 1,
 			sceneKey: SceneKeys.TOILET,
+			tooltip: 'Исправление ошибок'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.PLAY] = new SpriteButton(this, {
@@ -232,6 +235,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 3,
 			sceneKey: SceneKeys.PLAY,
+			tooltip: 'Активности'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.FAST_FORWARD] = new SpriteButton(this, {
@@ -240,6 +244,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 4,
 			sceneKey: SceneKeys.FAST_FORWARD,
+			tooltip: 'Ускорение времени'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.MEDICINE] = new SpriteButton(this, {
@@ -248,6 +253,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 6,
 			sceneKey: SceneKeys.MEDICINE,
+			tooltip: 'Кофеёк'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.SHOP] = new SpriteButton(this, {
@@ -256,6 +262,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 7,
 			sceneKey: SceneKeys.SHOP,
+			tooltip: 'Магазин'
 		}, this.changeState.bind(this));
 
 		this.buttons[ButtonKeys.MAIN] = new SpriteButton(this, {
@@ -264,6 +271,7 @@ export default class UIScene extends Phaser.Scene {
 			sheet: FrameSheets.BUTTON,
 			frame: 9,
 			sceneKey: SceneKeys.MAIN,
+			tooltip: 'Главный экран'
 		}, this.changeState.bind(this));
 	}
 
